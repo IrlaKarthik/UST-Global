@@ -1,0 +1,59 @@
+def divisible_by_5_and_7(n):
+
+    for i in range(n+1):
+        if i%5 == 0 and i%7 == 0:
+            yield i
+
+result = divisible_by_5_and_7(100)
+for j in result:
+    print(j)
+
+
+def interleaves_of_strings(str1,str2):
+    result = ''
+    min_length = min(len(str1), len(str2))
+    for i in range(min_length):
+        result += str1[i] + str2[i]
+    result += str1[min_length:] + str2[min_length:]
+
+    return result
+
+print(interleaves_of_strings("AAAA","1234567"))
+
+
+
+
+class CircularQueue:
+    def __init__(self, max_len):
+        self.max_len = max_len
+        self.queue = {}
+        self.rear = 0
+        self.front = 0
+
+    def enqueue(self, num):
+        if (self.rear + 1) % self.max_len == self.front:
+            remove_ele = self.queue[self.front]
+            self.front = (self.front + 1) %self.max_len
+            print("Removed element", remove_ele)
+        self.queue[self.rear] = num
+        self.rear = (self.rear+1) % self.max_len
+
+    def display(self):
+        print("Current Queue: ")
+        if self.front == self.rear:
+            print("Queue is empty")
+        else:
+            i = self.front
+            while i != self.rear:
+                print(self.queue[i], end=' ')
+                i = (i+1) % self.max_len
+            print()
+
+obj = CircularQueue(5)
+obj.enqueue(1)
+obj.enqueue(2)
+obj.enqueue(3)
+obj.enqueue(4)
+obj.enqueue(5)
+obj.display()
+
